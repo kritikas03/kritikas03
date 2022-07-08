@@ -1,0 +1,103 @@
+import React from 'react';
+const Header = () => {
+  return <h1 className="main-heading">Spotify Music Search</h1>;
+};
+export default Header;
+const RedirectPage = () => {
+ return <div>Redirect Page</div>;
+};
+export default RedirectPage;   
+const Dashboard = () => {
+ return <div>Dashboard Page</div>;
+};
+export default Dashboard;
+import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
+import Header from './Header';
+const Home = (props) => {
+  return (
+    <div className="login">
+      <Header />
+      <Button variant="info" type="submit">
+        Login to spotify
+      </Button>
+    </div>
+  );
+};
+export default connect()(Home);
+import { Link } from 'react-router-dom';
+import Header from './Header';
+const NotFoundPage = () => {
+  return (
+    <React.Fragment>
+      <Header />
+      Page not found. Goto <Link to="/dashboard">Home Page</Link>
+    </React.Fragment>
+  );
+};
+export default NotFoundPage;import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Home from '../components/Home';
+import RedirectPage from '../components/RedirectPage';
+import Dashboard from '../components/Dashboard';
+import NotFoundPage from '../components/NotFoundPage';
+class AppRouter extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <div className="main">
+          <Switch>
+            <Route path="/" component={Home} exact={true} />
+            <Route path="/redirect" component={RedirectPage} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
+}
+export default AppRouter;
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import AppRouter from './router/AppRouter';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles.css';
+ReactDOM.render(
+  <Provider store={store}>
+    <AppRouter />
+  </Provider>,
+  document.getElementById('root')
+);
+//API Code 
+{
+  "tracks": [
+    {
+      "artists": [
+          "id": "25fqWEebq6PoiGQIHIrdtv",
+          "name": "Baauer",
+          "type": "artist",
+          "uri": "spotify:artist:25fqWEebq6PoiGQIHIrdtv"
+        }
+      ],
+      "name": "Harlem Shake",
+      "track_number": 1,
+      "type": "track",
+      "uri": "spotify:track:01XFgRZfZI7oBagNf1Loml"
+    },
+  ],
+  "seeds": [
+    {
+      "initialPoolSize": 1000,
+      "afterFilteringSize": 1000,
+      "afterRelinkingSize": 972,
+      "id": "electronic",
+      "type": "GENRE",
+      "href": null
+    }
+  ]
+}
+
+yarn start
